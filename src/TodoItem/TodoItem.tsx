@@ -1,16 +1,51 @@
 import { Pencil, Trash2 } from 'lucide-react';
 import s from './TodoItem.module.scss';
+import type { Task } from '../TodoForm/TodoForm';
+import { useState } from 'react';
 
 type Props = {
-  taskName: string;
+  task: Task;
+  onEditTask: (id: string, newTask: string) => void;
 };
 
-export default function TodoItem({ taskName }: Props) {
+export default function TodoItem({ task, onEditTask }: Props) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(task.text);
+
+  function handleEdit() {
+    if (isEditing) {
+      onEditTask(task.id, editText);
+    }
+    setIsEditing(!isEditing);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Enter') {
+      handleEdit();
+    }
+    if (e.key === 'Escape') {
+      setEditText(task.text);
+      setIsEditing(false);
+    }
+  }
+
   return (
     <div className={s.item}>
-      <p className={s.taskName}>{taskName}</p>
+      {isEditing ? (
+        <input
+          type="text"
+          value={editText}
+          onChange={e => setEditText(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onBlur={handleEdit}
+          autoFocus
+          className={s.editInput}
+        />
+      ) : (
+        <p className={s.taskName}>{editText}</p>
+      )}
       <div className={s.icons}>
-        <Pencil size={20} className={s.icon} />
+        <Pencil size={20} className={s.icon} onClick={handleEdit} />
         <Trash2 size={20} className={s.icon} />
         <input type="checkbox" />
       </div>

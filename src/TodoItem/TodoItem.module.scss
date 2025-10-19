@@ -9,8 +9,19 @@
   border-radius: 0.5rem;
 }
 
-.taskName {
-  font-weight: 600;
+.editInput {
+  border: 0.1rem solid transparent;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: inherit;
+  color: inherit;
+  flex-grow: 1;
+
+  &:focus {
+    outline: none;
+    color: beige;
+    font-weight: 600;
+  }
 }
 
 .icons {

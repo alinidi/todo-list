@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react';
 import TodoList from '../TodoList/TodoList';
 import s from './TodoForm.module.scss';
 
+export type Task = {
+  id: string;
+  text: string;
+  completed: boolean;
+};
+
 export default function TodoForm() {
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
 
   useEffect(() => {
@@ -16,17 +22,32 @@ export default function TodoForm() {
 
   function addTask() {
     if (newTask.trim() !== '') {
-      const updatedTasks = [...tasks, newTask];
+      const task: Task = {
+        id: Date.now().toString(),
+        text: newTask,
+        completed: false,
+      };
+      const updatedTasks = [...tasks, task];
       setTasks(updatedTasks);
       setNewTask('');
       localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
   }
 
+  function editTask(id: string, newText: string) {
+    const updatedTasks = tasks.map(task =>
+      task.id === id ? { ...task, text: newText } : task
+    );
+    if (updatedTasks) {
+      setTasks(updatedTasks);
+    }
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  }
+
   return (
     <div className={s.form}>
       <h1>Todo List</h1>
-      <TodoList todoItems={tasks} />
+      <TodoList todoItems={tasks} onEditTask={editTask} />
       <div className={s.addContainer}>
         <input
           type="text"
