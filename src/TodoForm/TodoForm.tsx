@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import TodoList from '../TodoList/TodoList';
 import s from './TodoForm.module.scss';
 import Filter from '../Filter/Filter';
+import AddTask from '../AddTask/AddTask';
 
 export type Task = {
   id: string;
@@ -85,17 +86,7 @@ export default function TodoForm() {
         handleFilter={handleFilter}
         currentFilter={filter}
       />
-      <div className={s.addContainer}>
-        <input
-          type="text"
-          className={s.newTask}
-          placeholder="Добавить новое задание"
-          value={newTask}
-          onChange={e => setNewTask(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && addTask()}
-        />
-        <button onClick={addTask}>Добавить</button>
-      </div>
+      <AddTask newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
     </div>
   );
 }
