@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import TodoList from '../TodoList/TodoList';
 import s from './TodoForm.module.scss';
+import Filter from '../Filter/Filter';
 
 export type Task = {
   id: string;
@@ -21,7 +22,7 @@ export default function TodoForm() {
     }
   }, []);
 
-  function addTask() {
+  function addTask(): void {
     if (newTask.trim() !== '') {
       const task: Task = {
         id: Date.now().toString(),
@@ -35,23 +36,21 @@ export default function TodoForm() {
     }
   }
 
-  function editTask(id: string, newText: string) {
+  function editTask(id: string, newText: string): void {
     const updatedTasks = tasks.map(task =>
       task.id === id ? { ...task, text: newText } : task
     );
-    if (updatedTasks) {
-      setTasks(updatedTasks);
-    }
+    setTasks(updatedTasks);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
-  function deleteTask(id: string) {
+  function deleteTask(id: string): void {
     const updatedTasks = tasks.filter(task => task.id !== id);
     setTasks(updatedTasks);
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
-  function handleCheckbox(id: string) {
+  function handleCheckbox(id: string): void {
     const updatedTasks = tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     );
@@ -59,7 +58,7 @@ export default function TodoForm() {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
-  function handleFilter(filterType: 'all' | 'active' | 'completed') {
+  function handleFilter(filterType: 'all' | 'active' | 'completed'): void {
     setFilter(filterType);
   }
 
@@ -77,6 +76,7 @@ export default function TodoForm() {
         <h1>Todo List</h1>
         <p>Active tasks: {activeTasksCount}</p>
       </div>
+      <Filter handleFilter={handleFilter} currentFilter={filter} />
       <TodoList
         todoItems={filteredTasks}
         onEditTask={editTask}

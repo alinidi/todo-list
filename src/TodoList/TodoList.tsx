@@ -1,4 +1,3 @@
-import Filter from '../Filter/Filter';
 import type { Task } from '../TodoForm/TodoForm';
 import TodoItem from '../TodoItem/TodoItem';
 
@@ -16,15 +15,12 @@ export default function TodoList({
   onEditTask,
   onDeleteTask,
   handleCheckbox,
-  handleFilter,
-  currentFilter,
 }: Props) {
   return (
     <div>
-      <Filter handleFilter={handleFilter} currentFilter={currentFilter} />
       <ul>
-        {todoItems.map((item, index) => (
-          <li key={index}>
+        {todoItems.map(item => (
+          <li key={item.id}>
             <TodoItem
               task={item}
               onEditTask={onEditTask}

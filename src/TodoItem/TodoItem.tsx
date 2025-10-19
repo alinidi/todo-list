@@ -19,14 +19,14 @@ export default function TodoItem({
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
 
-  function handleEdit() {
+  function handleEdit(): void {
     if (isEditing) {
       onEditTask(task.id, editText);
     }
     setIsEditing(!isEditing);
   }
 
-  function handleKeyDown(e: React.KeyboardEvent) {
+  function handleKeyDown(e: React.KeyboardEvent): void {
     if (e.key === 'Enter') {
       handleEdit();
     }
