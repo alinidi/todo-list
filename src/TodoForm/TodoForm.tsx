@@ -50,6 +50,14 @@ export default function TodoForm() {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
+  function handleCheckbox(id: string) {
+    const updatedTasks = tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  }
+
   return (
     <div className={s.form}>
       <h1>Todo List</h1>
@@ -57,6 +65,7 @@ export default function TodoForm() {
         todoItems={tasks}
         onEditTask={editTask}
         onDeleteTask={deleteTask}
+        handleCheckbox={handleCheckbox}
       />
       <div className={s.addContainer}>
         <input

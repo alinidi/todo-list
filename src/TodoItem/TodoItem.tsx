@@ -7,9 +7,15 @@ type Props = {
   task: Task;
   onEditTask: (id: string, newTask: string) => void;
   onDeleteTask: (id: string) => void;
+  handleCheckbox: (id: string) => void;
 };
 
-export default function TodoItem({ task, onEditTask, onDeleteTask }: Props) {
+export default function TodoItem({
+  task,
+  onEditTask,
+  onDeleteTask,
+  handleCheckbox,
+}: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
 
@@ -43,7 +49,9 @@ export default function TodoItem({ task, onEditTask, onDeleteTask }: Props) {
           className={s.editInput}
         />
       ) : (
-        <p className={s.taskName}>{editText}</p>
+        <p className={`${s.taskName} ${task.completed ? s.completed : ''}`}>
+          {task.text}
+        </p>
       )}
       <div className={s.icons}>
         <Pencil size={20} className={s.icon} onClick={handleEdit} />
@@ -52,7 +60,11 @@ export default function TodoItem({ task, onEditTask, onDeleteTask }: Props) {
           className={s.icon}
           onClick={() => onDeleteTask(task.id)}
         />
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onChange={() => handleCheckbox(task.id)}
+          checked={task.completed}
+        />
       </div>
     </div>
   );
