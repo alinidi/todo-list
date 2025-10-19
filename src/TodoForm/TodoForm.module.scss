@@ -5,8 +5,22 @@
   margin: 0 auto;
 
   h1 {
-    margin-bottom: 1.5rem;
     color: #e0cdb2;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+
+  p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.7rem;
+    background-color: rgb(109, 124, 85);
+    border-radius: 0.7rem;
   }
 }
 

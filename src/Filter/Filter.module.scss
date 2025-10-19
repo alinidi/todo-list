@@ -1,6 +1,8 @@
 .filterWrapper {
   display: flex;
   width: 15rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
   justify-content: space-between;
 }
 
@@ -12,12 +14,6 @@ button {
   cursor: pointer;
   padding: 0.3rem;
   font-size: 0.9rem;
-}
-
-.filterWrapper {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
 }
 
 .button {

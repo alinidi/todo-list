@@ -69,9 +69,14 @@ export default function TodoForm() {
     return true;
   });
 
+  const activeTasksCount = tasks.filter(task => !task.completed).length;
+
   return (
     <div className={s.form}>
-      <h1>Todo List</h1>
+      <div className={s.header}>
+        <h1>Todo List</h1>
+        <p>Active tasks: {activeTasksCount}</p>
+      </div>
       <TodoList
         todoItems={filteredTasks}
         onEditTask={editTask}
