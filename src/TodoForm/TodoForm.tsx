@@ -44,10 +44,20 @@ export default function TodoForm() {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
+  function deleteTask(id: string) {
+    const updatedTasks = tasks.filter(task => task.id !== id);
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  }
+
   return (
     <div className={s.form}>
       <h1>Todo List</h1>
-      <TodoList todoItems={tasks} onEditTask={editTask} />
+      <TodoList
+        todoItems={tasks}
+        onEditTask={editTask}
+        onDeleteTask={deleteTask}
+      />
       <div className={s.addContainer}>
         <input
           type="text"

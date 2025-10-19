@@ -6,9 +6,10 @@ import { useState } from 'react';
 type Props = {
   task: Task;
   onEditTask: (id: string, newTask: string) => void;
+  onDeleteTask: (id: string) => void;
 };
 
-export default function TodoItem({ task, onEditTask }: Props) {
+export default function TodoItem({ task, onEditTask, onDeleteTask }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(task.text);
 
@@ -46,7 +47,11 @@ export default function TodoItem({ task, onEditTask }: Props) {
       )}
       <div className={s.icons}>
         <Pencil size={20} className={s.icon} onClick={handleEdit} />
-        <Trash2 size={20} className={s.icon} />
+        <Trash2
+          size={20}
+          className={s.icon}
+          onClick={() => onDeleteTask(task.id)}
+        />
         <input type="checkbox" />
       </div>
     </div>
