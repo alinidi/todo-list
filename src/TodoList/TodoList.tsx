@@ -7,6 +7,8 @@ type Props = {
   onEditTask: (id: string, newTask: string) => void;
   onDeleteTask: (id: string) => void;
   handleCheckbox: (id: string) => void;
+  handleFilter: (filterType: 'all' | 'active' | 'completed') => void;
+  currentFilter: string;
 };
 
 export default function TodoList({
@@ -14,10 +16,12 @@ export default function TodoList({
   onEditTask,
   onDeleteTask,
   handleCheckbox,
+  handleFilter,
+  currentFilter,
 }: Props) {
   return (
     <div>
-      <Filter />
+      <Filter handleFilter={handleFilter} currentFilter={currentFilter} />
       <ul>
         {todoItems.map((item, index) => (
           <li key={index}>

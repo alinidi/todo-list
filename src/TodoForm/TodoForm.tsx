@@ -11,6 +11,7 @@ export type Task = {
 export default function TodoForm() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
@@ -58,14 +59,26 @@ export default function TodoForm() {
     localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   }
 
+  function handleFilter(filterType: 'all' | 'active' | 'completed') {
+    setFilter(filterType);
+  }
+
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'active') return !task.completed;
+    if (filter === 'completed') return task.completed;
+    return true;
+  });
+
   return (
     <div className={s.form}>
       <h1>Todo List</h1>
       <TodoList
-        todoItems={tasks}
+        todoItems={filteredTasks}
         onEditTask={editTask}
         onDeleteTask={deleteTask}
         handleCheckbox={handleCheckbox}
+        handleFilter={handleFilter}
+        currentFilter={filter}
       />
       <div className={s.addContainer}>
         <input
