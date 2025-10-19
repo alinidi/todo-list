@@ -1,0 +1,29 @@
+.item {
+  display: flex;
+  align-items: center;
+  width: auto;
+  justify-content: space-between;
+  padding: 0.7rem;
+  margin: 0.5rem 0;
+  border: 0.1rem solid white;
+  border-radius: 0.5rem;
+}
+
+.taskName {
+  font-weight: 600;
+}
+
+.icons {
+  display: flex;
+  width: 6rem;
+  justify-content: space-between;
+  margin: 0 0.5rem;
+
+  input {
+    cursor: pointer;
+  }
+}
+
+.icon {
+  cursor: pointer;
+}
